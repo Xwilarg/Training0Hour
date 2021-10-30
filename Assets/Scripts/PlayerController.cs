@@ -5,6 +5,19 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rb;
     private bool _jump;
 
+    [SerializeField]
+    private Material _normal, _selected;
+
+    public void Select()
+    {
+        GetComponent<MeshRenderer>().material = _selected;
+    }
+
+    public void Unselect()
+    {
+        GetComponent<MeshRenderer>().material = _normal;
+    }
+
     public bool IsCurrent { set; get; } = true;
 
     private void Start()

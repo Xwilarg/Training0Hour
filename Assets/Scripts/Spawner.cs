@@ -66,6 +66,7 @@ public class Spawner : MonoBehaviour
     public void SetNextCurrent()
     {
         spawned[_index].GetComponent<PlayerController>().IsCurrent = false;
+        spawned[_index].GetComponent<PlayerController>().IsCurrent = false;
         if (_index + 1 == spawned.Count)
         {
             _index = 0;
@@ -75,6 +76,7 @@ public class Spawner : MonoBehaviour
             _index++;
         }
         spawned[_index].GetComponent<PlayerController>().IsCurrent = true;
+        spawned[_index].GetComponent<PlayerController>().Select();
     }
 
     private void Spawn()
@@ -82,11 +84,13 @@ public class Spawner : MonoBehaviour
         if (spawned.Count > 0)
         {
             spawned[_index].GetComponent<PlayerController>().IsCurrent = false;
+            spawned[_index].GetComponent<PlayerController>().Unselect();
         }
         _index = spawned.Count;
 
         var go = Instantiate(_prefab, transform);
         go.transform.position = transform.position;
         spawned.Add(go);
+        spawned[_index].GetComponent<PlayerController>().Select();
     }
 }
