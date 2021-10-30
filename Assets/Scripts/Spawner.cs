@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
@@ -7,33 +6,45 @@ public class Spawner : MonoBehaviour
     [SerializeField]
     private GameObject _prefab;
 
+    [SerializeField]
+    private GameObject _panel;
+
     List<GameObject> spawned = new();
 
     private int _index = 0;
 
-    private void Start()
-    {
-        Spawn();
-    }
+    private bool _waitEnter = true;
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (_waitEnter)
         {
-            Spawn();
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                _panel.SetActive(false);
+                Spawn();
+                _waitEnter = false;
+            }
         }
-        if (Input.GetKeyDown(KeyCode.Tab))
+        else
         {
-            spawned[_index].GetComponent<PlayerController>().IsCurrent = false;
-            if (_index + 1 == spawned.Count)
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                _index = 0;
+                Spawn();
             }
-            else
+            if (Input.GetKeyDown(KeyCode.Tab))
             {
-                _index++;
+                spawned[_index].GetComponent<PlayerController>().IsCurrent = false;
+                if (_index + 1 == spawned.Count)
+                {
+                    _index = 0;
+                }
+                else
+                {
+                    _index++;
+                }
+                spawned[_index].GetComponent<PlayerController>().IsCurrent = true;
             }
-            spawned[_index].GetComponent<PlayerController>().IsCurrent = true;
         }
     }
 
