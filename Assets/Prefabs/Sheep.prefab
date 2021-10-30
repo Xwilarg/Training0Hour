@@ -100,6 +100,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3e3f0326baa4564abec3d1d15470629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _normal: {fileID: 2100000, guid: 6eb11d983dbebe245a5def5f49598184, type: 2}
+  _selected: {fileID: 2100000, guid: 6f16fdf03e210c443b5b2ec019874691, type: 2}
 --- !u!54 &6030174880489888466
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -114,7 +116,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 120
   m_CollisionDetection: 0
 --- !u!65 &6674631426644738182
 BoxCollider:

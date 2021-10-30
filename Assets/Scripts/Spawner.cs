@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Spawner : MonoBehaviour
 {
@@ -15,7 +16,16 @@ public class Spawner : MonoBehaviour
     private GameObject _prefab;
 
     [SerializeField]
-    private GameObject _panel;
+    private GameObject _panel, _panelWin;
+
+    int nbClone = 0;
+
+    public void ShowPanelWin()
+    {
+        GameEnded = true;
+        _panelWin.SetActive(true);
+        _panelWin.GetComponentInChildren<Text>().text = $"You won in {nbClone} clones!";
+    }
 
     List<GameObject> spawned = new();
 
@@ -41,6 +51,10 @@ public class Spawner : MonoBehaviour
 
     public void Update()
     {
+        if (GameEnded)
+        {
+            return;
+        }
         if (_waitEnter)
         {
             if (Input.GetKeyDown(KeyCode.E))
@@ -66,6 +80,7 @@ public class Spawner : MonoBehaviour
     public void SetNextCurrent()
     {
         spawned[_index].GetComponent<PlayerController>().IsCurrent = false;
+        spawned[_index].GetComponent<PlayerController>().IsCurrent = false;
         if (_index + 1 == spawned.Count)
         {
             _index = 0;
@@ -75,18 +90,25 @@ public class Spawner : MonoBehaviour
             _index++;
         }
         spawned[_index].GetComponent<PlayerController>().IsCurrent = true;
+        spawned[_index].GetComponent<PlayerController>().Select();
     }
 
     private void Spawn()
     {
+        nbClone++;
         if (spawned.Count > 0)
         {
             spawned[_index].GetComponent<PlayerController>().IsCurrent = false;
+            spawned[_index].GetComponent<PlayerController>().Unselect();
         }
         _index = spawned.Count;
 
         var go = Instantiate(_prefab, transform);
         go.transform.position = transform.position;
         spawned.Add(go);
+        spawned[_index].GetComponent<PlayerController>().Select();
     }
+
+
+    public bool GameEnded { set; get; } = false;
 }
