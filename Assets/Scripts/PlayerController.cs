@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
             _jump = false;
             if (info.distance < 1.01f)
             {
-                _rb.AddForce(Vector3.up * 5f, ForceMode.Impulse);
+                _rb.AddForce(Vector3.up * 5.5f, ForceMode.Impulse);
             }
         }
     }
