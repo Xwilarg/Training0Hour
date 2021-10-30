@@ -32,6 +32,15 @@ public class PlayerController : MonoBehaviour
         if (!IsCurrent) return;
         _rb.velocity = new Vector3(Input.GetAxis("Horizontal") * 5f, _rb.velocity.y, 0f);
 
+        if (_rb.velocity.x < 0f)
+        {
+            transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.x, 90f, transform.rotation.z));
+        }
+        else if (_rb.velocity.x > 0f)
+        {
+            transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.x, -90f, transform.rotation.z));
+        }
+
         if (_jump)
         {
             Physics.Raycast(new Ray(transform.position, Vector3.down), out RaycastHit info);
