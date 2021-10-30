@@ -1,0 +1,13 @@
+﻿using UnityEngine;
+
+public class CameraFollow : MonoBehaviour
+{
+    private Vector3 _offset;
+
+    private GameObject _toFollow;
+
+    public void FollowMe(GameObject go)
+    {
+
+    }
+}

@@ -91,6 +91,7 @@ public class Spawner : MonoBehaviour
         }
         spawned[_index].GetComponent<PlayerController>().IsCurrent = true;
         spawned[_index].GetComponent<PlayerController>().Select();
+        CameraFollow.S.GetComponent<CameraFollow>().FollowMe(spawned[_index]);
     }
 
     private void Spawn()
@@ -107,6 +108,7 @@ public class Spawner : MonoBehaviour
         go.transform.position = transform.position;
         spawned.Add(go);
         spawned[_index].GetComponent<PlayerController>().Select();
+        CameraFollow.S.GetComponent<CameraFollow>().FollowMe(go);
     }
 
 

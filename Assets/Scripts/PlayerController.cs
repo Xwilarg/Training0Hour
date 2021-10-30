@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
         {
             Physics.Raycast(new Ray(transform.position, Vector3.down), out RaycastHit info);
             _jump = false;
-            if (info.collider.name == "Floor" && info.distance < 1.01f)
+            if (info.distance < 1.01f)
             {
                 _rb.AddForce(Vector3.up * 5f, ForceMode.Impulse);
             }
