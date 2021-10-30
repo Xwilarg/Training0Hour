@@ -5,6 +5,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rb;
     private bool _jump;
 
+    public bool IsCurrent { set; get; } = true;
+
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -12,6 +14,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (!IsCurrent) return;
         if (!_jump)
         {
             _jump = Input.GetKeyDown(KeyCode.Space);
@@ -20,6 +23,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!IsCurrent) return;
         _rb.velocity = new Vector3(Input.GetAxis("Horizontal") * 5f, _rb.velocity.y, 0f);
 
         if (_jump)
