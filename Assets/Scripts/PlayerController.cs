@@ -28,6 +28,10 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (Spawner.S.GameEnded)
+        {
+            return;
+        }
         if (!IsCurrent) return;
         if (!_jump)
         {
@@ -42,6 +46,10 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (Spawner.S.GameEnded)
+        {
+            return;
+        }
         if (!IsCurrent) return;
         _rb.velocity = new Vector3(Input.GetAxis("Horizontal") * 5f, _rb.velocity.y, 0f);
 
@@ -62,6 +70,15 @@ public class PlayerController : MonoBehaviour
             {
                 _rb.AddForce(Vector3.up * 5f, ForceMode.Impulse);
             }
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Goal"))
+        {
+            _rb.velocity = Vector3.zero;
+            Spawner.S.ShowPanelWin();
         }
     }
 }
