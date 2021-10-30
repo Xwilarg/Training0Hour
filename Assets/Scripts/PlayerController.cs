@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        GetComponent<AudioSource>().Play();
     }
 
     private void Update()
@@ -19,12 +20,26 @@ public class PlayerController : MonoBehaviour
         {
             _jump = Input.GetKeyDown(KeyCode.Space);
         }
+
+        if (transform.position.y < -10f)
+        {
+            Spawner.S.Kill(gameObject);
+        }
     }
 
     private void FixedUpdate()
     {
         if (!IsCurrent) return;
         _rb.velocity = new Vector3(Input.GetAxis("Horizontal") * 5f, _rb.velocity.y, 0f);
+
+        if (_rb.velocity.x < 0f)
+        {
+            transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.x, 90f, transform.rotation.z));
+        }
+        else if (_rb.velocity.x > 0f)
+        {
+            transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.x, -90f, transform.rotation.z));
+        }
 
         if (_jump)
         {
