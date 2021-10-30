@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        GetComponent<AudioSource>().Play();
     }
 
     private void Update()
