@@ -9,6 +9,8 @@ public class Spawner : MonoBehaviour
 
     List<GameObject> spawned = new();
 
+    private int _index = 0;
+
     private void Start()
     {
         Spawn();
@@ -20,14 +22,28 @@ public class Spawner : MonoBehaviour
         {
             Spawn();
         }
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            spawned[_index].GetComponent<PlayerController>().IsCurrent = false;
+            if (_index + 1 == spawned.Count)
+            {
+                _index = 0;
+            }
+            else
+            {
+                _index++;
+            }
+            spawned[_index].GetComponent<PlayerController>().IsCurrent = true;
+        }
     }
 
     private void Spawn()
     {
         if (spawned.Count > 0)
         {
-            spawned.Last().GetComponent<PlayerController>().IsCurrent = false;
+            spawned[_index].GetComponent<PlayerController>().IsCurrent = false;
         }
+        _index = spawned.Count;
 
         var go = Instantiate(_prefab, transform);
         go.transform.position = transform.position;
