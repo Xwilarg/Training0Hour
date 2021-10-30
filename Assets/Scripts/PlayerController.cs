@@ -19,6 +19,11 @@ public class PlayerController : MonoBehaviour
         {
             _jump = Input.GetKeyDown(KeyCode.Space);
         }
+
+        if (transform.position.y < -10f)
+        {
+            Spawner.S.Kill(gameObject);
+        }
     }
 
     private void FixedUpdate()
